@@ -9,7 +9,7 @@
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "parserOptions": {
     "project": "tsconfig.json",
-    "tsconfigRootDir": "frontend",
+    "tsconfigRootDir": "./",
     "sourceType": "module"
   }
 }

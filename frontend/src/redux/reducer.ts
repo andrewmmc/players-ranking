@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import playerScoreReducer from "./playerScore"; // eslint-disable-line import/no-named-as-default
+import playersReducer from "./players"; // eslint-disable-line import/no-named-as-default
+import scoresReducer from "./scores"; // eslint-disable-line import/no-named-as-default
 
 const rootReducer = combineReducers({
-  playerScore: playerScoreReducer,
+  players: playersReducer,
+  scores: scoresReducer,
 });
 
 export default rootReducer;
