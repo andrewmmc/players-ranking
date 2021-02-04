@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Table,
   Thead,
@@ -9,14 +9,38 @@ import {
   Td,
   TableCaption,
 } from "@chakra-ui/react";
-import { getTopTenPlayers } from "../redux/players";
+import { getTopTenPlayers, initPlayers, updatePlayer } from "../redux/players";
+import { INIT_PLAYERS, UPDATE_PLAYER, ActionTypes } from "../redux/players/types";
+import webSocketService from "../utils/webSocketService";
 
 const Leaderboard = () => {
+  const dispatch = useDispatch();
   const topTenPlayers = useSelector(getTopTenPlayers) || [];
+
+  useEffect(() => {
+    webSocketService.onReceive((action: ActionTypes) => {
+      switch (action.type) {
+        case INIT_PLAYERS: {
+          dispatch(initPlayers(action.data));
+          break;
+        }
+        case UPDATE_PLAYER: {
+          dispatch(
+            updatePlayer(action.playerId, action.name, action.score)
+          );
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+  }, []);
+
   return (
     <Table variant="simple">
       <TableCaption>Real time leaderboard</TableCaption>
-      <Thead>
+      <Thead role="rowheader">
         <Tr>
           <Th># Rank</Th>
           <Th>Name</Th>
@@ -28,7 +52,7 @@ const Leaderboard = () => {
           topTenPlayers.map(([playerId, player], index) => {
             const { name, score } = player;
             return (
-              <Tr key={playerId}>
+              <Tr key={playerId} role="row">
                 <Td>{index + 1}</Td>
                 <Td>{name}</Td>
                 <Td isNumeric>{score}</Td>
@@ -36,7 +60,7 @@ const Leaderboard = () => {
             );
           })
         ) : (
-          <Tr>
+          <Tr role="row">
             <Td />
             <Td>No players available.</Td>
             <Td />

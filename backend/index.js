@@ -7,6 +7,10 @@ const wss = new WebSocketServer({
   port: process.env.PORT || "3000",
 });
 
+console.log(
+  `Server started. Visit ws://localhost:${process.env.PORT || "3000"}`
+);
+
 // Mock data - to keep it sample, in-memory list is used here for storing players
 const players = {
   "ec82ae68-1335-4208-94ab-2792502135f2": { name: "Mary", score: 20 },
