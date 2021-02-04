@@ -39,9 +39,8 @@ To update specific player's score, you may send the following data **in string**
 No higher score checking is implemented on backend side, meaning the scoring data will directly being repalced the existing player one, or added if the current one does not exist. `playerId` is the unique ID for identifying different players.
 
 ## Run test
-Tests are included in this project. To run those, please use the following command:
+Tests are included in the frontend application. To run those, please use the following command:
 ```bash
-$ cd backend && yarn test
 $ cd frontend && yarn test
 ```
 

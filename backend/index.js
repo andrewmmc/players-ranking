@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require("dotenv").config();
 const WebSocket = require("ws");
 
@@ -25,7 +26,7 @@ const players = {
   "d9538a03-e9e8-4a5b-b0fe-936789b08407": { name: "Jenny", score: 29 },
 };
 
-console.log(`Existing hard-coded data:`);
+console.log(`Existing hard-coded players:`);
 console.log(players);
 
 // messages type
@@ -43,13 +44,15 @@ wss.on("connection", (ws) => {
     clients.forEach((client) => {
       try {
         const action = JSON.parse(data);
-
         if (typeof action === "object" && action !== null) {
           const { type, playerId, name, score } = action;
           if (type === UPDATE_PLAYER && playerId && name && score) {
             // update in-memory record for init
             // to keep it simple, no higher score checking is implemented here
             players[playerId] = { name, score };
+
+            console.log(`Received player update:`);
+            console.log({ playerId, name, score });
 
             // boardcast score update to every connections
             // for better performance, could consider only sending update related to top 10 players if needed
@@ -59,7 +62,6 @@ wss.on("connection", (ws) => {
       } catch (err) {
         console.error(`Invalid socket message - ${err}`);
       }
-      client.send(data);
     });
   });
 
