@@ -25,6 +25,9 @@ const players = {
   "d9538a03-e9e8-4a5b-b0fe-936789b08407": { name: "Jenny", score: 29 },
 };
 
+console.log(`Existing hard-coded data:`);
+console.log(players);
+
 // messages type
 const INIT_PLAYERS = "INIT_PLAYERS";
 const UPDATE_PLAYER = "UPDATE_PLAYER";
