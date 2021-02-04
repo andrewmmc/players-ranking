@@ -5,15 +5,14 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import store from "./redux/store";
 import App from "./App";
-import WebSocketWrapper from "./components/WebSocketWrapper";
+import WebSocketConnector from "./components/WebSocketConnector";
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <ChakraProvider>
-        <WebSocketWrapper>
-          <App />
-        </WebSocketWrapper>
+        <App />
+        <WebSocketConnector />
       </ChakraProvider>
     </React.StrictMode>
   </Provider>,

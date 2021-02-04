@@ -1,3 +1,4 @@
+export const INIT_PLAYERS = "INIT_PLAYERS";
 export const UPDATE_PLAYER = "UPDATE_PLAYER";
 
 export interface Player {
@@ -9,6 +10,11 @@ export interface PlayersState {
   [playerId: string]: Player;
 }
 
+export interface InitPlayersAction {
+  type: typeof INIT_PLAYERS;
+  data: PlayersState;
+}
+
 export interface UpdatePlayerAction {
   type: typeof UPDATE_PLAYER;
   playerId: string;
@@ -16,4 +22,4 @@ export interface UpdatePlayerAction {
   score: number;
 }
 
-export type ActionTypes = UpdatePlayerAction;
+export type ActionTypes = InitPlayersAction | UpdatePlayerAction;
