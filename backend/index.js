@@ -18,7 +18,7 @@ const players = {
   "86d8d829-4f02-414e-9ba3-0b15ac1d878f": { name: "Andrew", score: 90 },
   "376f01b2-f613-47c9-b222-0a3545c36f41": { name: "Ken", score: 87 },
   "9cbe7899-f841-479d-abeb-15961ba287ab": { name: "Danny", score: 47 },
-  "d9538a03-e9e8-4a5b-b0fe-936789b08407": { name: "Jenny", score: 30 },
+  "d9538a03-e9e8-4a5b-b0fe-936789b08407": { name: "Jenny", score: 29 },
 };
 
 // messages type
