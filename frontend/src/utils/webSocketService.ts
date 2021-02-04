@@ -7,12 +7,6 @@ class WebSocketService {
     );
   }
 
-  send(message: object) {
-    if (this.socket) {
-      this.socket.send(JSON.stringify(message));
-    }
-  }
-
   onReceive(listener: any) {
     if (this.socket) {
       this.socket.addEventListener("message", (event) => {

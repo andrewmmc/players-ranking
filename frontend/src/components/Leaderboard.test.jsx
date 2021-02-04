@@ -1,16 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { render, screen } from "@testing-library/react";
-import Leaderboard from "../Leaderboard";
-import webSocketService from "../../utils/webSocketService";
+import Leaderboard, { handleSocketMessage } from "./Leaderboard";
+import { INIT_PLAYERS, UPDATE_PLAYER } from "../redux/players/types";
+import webSocketService from "../utils/webSocketService";
 
 jest.mock("react-redux", () => ({
   useSelector: jest.fn(),
   useDispatch: jest.fn(),
 }));
-jest.mock("../../utils/webSocketService");
+jest.mock("../utils/webSocketService");
 
-describe("rendering", () => {
+describe("render", () => {
   it("should render placeholder text when no players in the list", () => {
     useSelector.mockReturnValueOnce(undefined);
 
@@ -40,14 +41,41 @@ describe("rendering", () => {
   });
 });
 
-describe("communication with websocket server", () => {
-  // const players = {
-  //   "1c82ae68": { name: "Mary", score: 20 },
-  //   "14f37bef": { name: "Peter", score: 48 },
-  // };
+describe("web socket", () => {
+  const mockPlayers = {
+    "14f37bef": { name: "Peter", score: 48 },
+  };
 
   it("should call webSocketService.onReceive() to init EventListener", async () => {
     render(<Leaderboard />);
     expect(webSocketService.onReceive).toBeCalledTimes(1);
+  });
+
+  it("should dispatch players data for init", () => {
+    const mockedDispatch = jest.fn();
+    handleSocketMessage(mockedDispatch)({
+      type: INIT_PLAYERS,
+      data: mockPlayers,
+    });
+    expect(mockedDispatch).toBeCalledTimes(1);
+  });
+
+  it("should dispatch player data for update", () => {
+    const mockedDispatch = jest.fn();
+    handleSocketMessage(mockedDispatch)({
+      type: UPDATE_PLAYER,
+      playerId: "14f37bef",
+      name: "Peter",
+      score: 52,
+    });
+    expect(mockedDispatch).toBeCalledTimes(1);
+  });
+
+  it("should ignore other actions", () => {
+    const mockedDispatch = jest.fn();
+    handleSocketMessage(mockedDispatch)({
+      type: "OTHER_ACTION",
+    });
+    expect(mockedDispatch).toBeCalledTimes(0);
   });
 });

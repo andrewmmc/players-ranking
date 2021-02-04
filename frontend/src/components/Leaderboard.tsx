@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Dispatch } from "redux";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Table,
@@ -10,31 +11,37 @@ import {
   TableCaption,
 } from "@chakra-ui/react";
 import { getTopTenPlayers, initPlayers, updatePlayer } from "../redux/players";
-import { INIT_PLAYERS, UPDATE_PLAYER, ActionTypes } from "../redux/players/types";
+import {
+  INIT_PLAYERS,
+  UPDATE_PLAYER,
+  ActionTypes,
+} from "../redux/players/types";
 import webSocketService from "../utils/webSocketService";
+
+export const handleSocketMessage = (dispatch: Dispatch) => (
+  action: ActionTypes
+) => {
+  switch (action.type) {
+    case INIT_PLAYERS: {
+      dispatch(initPlayers(action.data));
+      break;
+    }
+    case UPDATE_PLAYER: {
+      dispatch(updatePlayer(action.playerId, action.name, action.score));
+      break;
+    }
+    default: {
+      break;
+    }
+  }
+};
 
 const Leaderboard = () => {
   const dispatch = useDispatch();
   const topTenPlayers = useSelector(getTopTenPlayers) || [];
 
   useEffect(() => {
-    webSocketService.onReceive((action: ActionTypes) => {
-      switch (action.type) {
-        case INIT_PLAYERS: {
-          dispatch(initPlayers(action.data));
-          break;
-        }
-        case UPDATE_PLAYER: {
-          dispatch(
-            updatePlayer(action.playerId, action.name, action.score)
-          );
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-    });
+    webSocketService.onReceive(handleSocketMessage(dispatch));
   }, []);
 
   return (
