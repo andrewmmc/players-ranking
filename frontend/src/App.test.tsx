@@ -2,8 +2,15 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-xtest("renders learn react link", () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+jest.mock("react-redux", () => ({
+  useSelector: jest.fn(),
+  useDispatch: jest.fn(),
+}));
+
+describe("App", () => {
+  it("should show Leaderboard", () => {
+    render(<App />);
+    const element = screen.getByText(/leaderboard/i);
+    expect(element).toBeInTheDocument();
+  });
+})
