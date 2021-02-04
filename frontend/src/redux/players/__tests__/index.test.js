@@ -2,8 +2,8 @@ import playerReducer, {
   initPlayers,
   updatePlayer,
   getTopTenPlayers,
-} from "./index";
-import { INIT_PLAYERS, UPDATE_PLAYER } from "./types";
+} from "../index";
+import { INIT_PLAYERS, UPDATE_PLAYER } from "../types";
 
 describe("action creators", () => {
   it("should create action INIT_PLAYERS", () => {

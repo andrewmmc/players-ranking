@@ -2,17 +2,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { render, screen } from "@testing-library/react";
 import Leaderboard from "../Leaderboard";
+import webSocketService from "../../utils/webSocketService";
 
 jest.mock("react-redux", () => ({
   useSelector: jest.fn(),
   useDispatch: jest.fn(),
 }));
+jest.mock("../../utils/webSocketService");
 
-jest.mock("../../utils/webSocketService", () => ({
-  onReceive: jest.fn(),
-}));
-
-describe("Leaderboard", () => {
+describe("rendering", () => {
   it("should render placeholder text when no players in the list", () => {
     useSelector.mockReturnValueOnce(undefined);
 
@@ -39,5 +37,17 @@ describe("Leaderboard", () => {
     render(<Leaderboard />);
     const rows = screen.getAllByRole("row");
     expect(rows.length).toBe(11);
+  });
+});
+
+describe("communication with websocket server", () => {
+  // const players = {
+  //   "1c82ae68": { name: "Mary", score: 20 },
+  //   "14f37bef": { name: "Peter", score: 48 },
+  // };
+
+  it("should call webSocketService.onReceive() to init EventListener", async () => {
+    render(<Leaderboard />);
+    expect(webSocketService.onReceive).toBeCalledTimes(1);
   });
 });

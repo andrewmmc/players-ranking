@@ -14,7 +14,7 @@ class WebSocketService {
   }
 
   onReceive(listener: any) {
-    if (this.socket)
+    if (this.socket) {
       this.socket.addEventListener("message", (event) => {
         try {
           const action = JSON.parse(event.data);
@@ -26,6 +26,7 @@ class WebSocketService {
           console.error(`Unexpected socket message - ${err}`);
         }
       });
+    }
   }
 }
 
