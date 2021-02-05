@@ -50,16 +50,50 @@ describe("selectors", () => {
       },
     };
     const expected = [
-      ["0b15ac1d878f", { name: "Andrew", score: 90 }],
-      ["0a3545c36f41", { name: "Ken", score: 87 }],
-      ["14f37befdwse", { name: "Edward", score: 55 }],
-      ["39a6540a33ec", { name: "Peter", score: 48 }],
-      ["15961ba287ab", { name: "Danny", score: 47 }],
-      ["9dabd906b409", { name: "Teddy", score: 44 }],
-      ["79672c4aa304", { name: "Alex", score: 40 }],
-      ["9272bef8712c", { name: "Tom", score: 30 }],
-      ["936789b08407", { name: "Jenny", score: 29 }],
-      ["750c50735787", { name: "Jason", score: 23 }],
+      ["0b15ac1d878f", { name: "Andrew", score: 90, rank: 1 }],
+      ["0a3545c36f41", { name: "Ken", score: 87, rank: 2 }],
+      ["14f37befdwse", { name: "Edward", score: 55, rank: 3 }],
+      ["39a6540a33ec", { name: "Peter", score: 48, rank: 4 }],
+      ["15961ba287ab", { name: "Danny", score: 47, rank: 5 }],
+      ["9dabd906b409", { name: "Teddy", score: 44, rank: 6 }],
+      ["79672c4aa304", { name: "Alex", score: 40, rank: 7 }],
+      ["9272bef8712c", { name: "Tom", score: 30, rank: 8 }],
+      ["936789b08407", { name: "Jenny", score: 29, rank: 9 }],
+      ["750c50735787", { name: "Jason", score: 23, rank: 10 }],
+    ];
+
+    const result = getTopTenPlayers(state);
+    expect(result).toStrictEqual(expected);
+    expect(result.length).toBe(10);
+  });
+
+  it("should keep same ranking if two players score are the same", () => {
+    const state = {
+      players: {
+        "2792502135f2": { name: "Mary", score: 20 },
+        "39a6540a33ec": { name: "Peter", score: 48 },
+        "9272bef8712c": { name: "Tom", score: 30 },
+        "750c50735787": { name: "Jason", score: 30 },
+        "79672c4aa304": { name: "Alex", score: 40 },
+        "9dabd906b409": { name: "Teddy", score: 87 },
+        "0b15ac1d878f": { name: "Andrew", score: 90 },
+        "0a3545c36f41": { name: "Ken", score: 87 },
+        "15961ba287ab": { name: "Danny", score: 47 },
+        "936789b08407": { name: "Jenny", score: 29 },
+        "14f37befdwse": { name: "Edward", score: 55 },
+      },
+    };
+    const expected = [
+      ["0b15ac1d878f", { name: "Andrew", score: 90, rank: 1 }],
+      ["9dabd906b409", { name: "Teddy", score: 87, rank: 2 }],
+      ["0a3545c36f41", { name: "Ken", score: 87, rank: 2 }],
+      ["14f37befdwse", { name: "Edward", score: 55, rank: 4 }],
+      ["39a6540a33ec", { name: "Peter", score: 48, rank: 5 }],
+      ["15961ba287ab", { name: "Danny", score: 47, rank: 6 }],
+      ["79672c4aa304", { name: "Alex", score: 40, rank: 7 }],
+      ["9272bef8712c", { name: "Tom", score: 30, rank: 8 }],
+      ["750c50735787", { name: "Jason", score: 30, rank: 8 }],
+      ["936789b08407", { name: "Jenny", score: 29, rank: 10 }],
     ];
 
     const result = getTopTenPlayers(state);

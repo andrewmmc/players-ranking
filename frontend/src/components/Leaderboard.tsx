@@ -56,20 +56,8 @@ const Leaderboard = () => {
       </Thead>
       <Tbody>
         {topTenPlayers.length > 0 ? (
-          topTenPlayers.map((item, index) => {
-            const [playerId, player] = item;
+          topTenPlayers.map(([playerId, player]) => {
             const { name, score, rank } = player;
-            if (index <= 0) {
-              player.rank = 1;
-            } else {
-              // keep same ranking if two players' score are the same
-              const [, prevPlayer] = topTenPlayers[index - 1];
-              if (prevPlayer.score === player.score) {
-                player.rank = prevPlayer.rank
-              } else {
-                player.rank = index + 1;
-              }
-            }
             return (
               <Tr key={playerId} role="row">
                 <Td>{rank}</Td>

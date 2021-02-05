@@ -20,20 +20,6 @@ describe("render", () => {
     expect(placeholderText).toBeInTheDocument();
   });
 
-  it("should render players list in 5 rows (header + contents)", () => {
-    const mockPlayers = [
-      ["86d8d829", { name: "Andrew", score: 90 }],
-      ["376f01b2", { name: "Ken", score: 87 }],
-      ["14f37bef", { name: "Peter", score: 87 }],
-      ["9cbe7899", { name: "Danny", score: 47 }],
-    ];
-    useSelector.mockReturnValueOnce(mockPlayers);
-
-    render(<Leaderboard />);
-    const rows = screen.getAllByRole("row");
-    expect(rows.length).toBe(5);
-  });
-
   it("should render players list in 11 rows (header + contents)", () => {
     const mockPlayers = [
       ["86d8d829", { name: "Andrew", score: 90 }],

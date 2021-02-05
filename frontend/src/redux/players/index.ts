@@ -28,7 +28,21 @@ export const updatePlayer = (
 export const getTopTenPlayers = (state: PlayersState) =>
   Object.entries(state.players)
     .sort(([, a], [, b]) => b.score - a.score)
-    .slice(0, 10);
+    .slice(0, 10)
+    .map((item, index, array) => {
+      const [, player] = item;
+      if (index > 0) {
+        const [, prevPlayer] = array[index - 1];
+        if (prevPlayer.score === player.score) {
+          player.rank = prevPlayer.rank;
+        } else {
+          player.rank = index + 1;
+        }
+      } else {
+        player.rank = 1;
+      }
+      return item;
+    });
 
 // reducers
 const initState: PlayersState = {};
