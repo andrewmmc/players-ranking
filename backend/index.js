@@ -46,8 +46,9 @@ wss.on("connection", (ws) => {
         const action = JSON.parse(data);
         if (typeof action === "object" && action !== null) {
           const { type, playerId, name, score } = action;
-          if (type === UPDATE_PLAYER && playerId && name && score) {
-            // update in-memory record for init
+          // could consider different validations (e.g. JSON schema) in real world application
+          if (type === UPDATE_PLAYER && playerId && name && score !== null) {
+            // update in-memory record for another connections to init
             // to keep it simple, no higher score checking is implemented here
             players[playerId] = { name, score };
 
