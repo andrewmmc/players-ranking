@@ -4,6 +4,8 @@ Simple React and Node.js WebSocket applications for showing top players.
 
 React application is written in TypeScript and Node.js application is written in JavaScript.
 
+Developed and tested under Node.js v12.16.1.
+
 ## Install
 1. Clone this repository to get started. Run the following commands to install dependencies on both frontend and backend applications.
 
@@ -39,7 +41,7 @@ To update specific player's score, you may send the following data **in string**
 No higher score checking is implemented on backend side, meaning the scoring data will directly being repalced the existing player one, or added if the current one does not exist. `playerId` is the unique ID for identifying different players.
 
 ## Run test
-Tests are included in the frontend application. To run those, please use the following command:
+Tests are included in the frontend application (as we're focusing on frontend application). To run those, please use the following command:
 ```bash
 $ cd frontend && yarn test
 ```
