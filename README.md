@@ -24,21 +24,21 @@ $ cd backend && yarn start
 $ cd frontend && yarn start
 ```
 
-## Config
-Config are stored in `backend/.env` and `frontend/.env`. Normally no changes are required.
+## Configs
+Configs are stored in `backend/.env` and `frontend/.env`. Normally no changes are required.
 
 ## How to use
-When you go to the frontend application, an websocket connection is created between client and server. To keep the implementation simple, players scores are only scored in memory.
+When you go to the frontend application, a WebSocket connection is created between client and server. To keep the implementation simple, players scores are only stored in memory.
 
-Players data will be boardcasted to client once connection is created.
+Players data will be broadcasted to the client once the connection is created.
 
-To update specific player's score, you may send the following data **in string** under websocket protocol to `ws://localhost:3000`.
+To update specific player's score, you may send the following data **in string** under WebSocket protocol to `ws://localhost:3000`.
 
 ```
 {"type":"UPDATE_PLAYER","playerId":"ec82ae68-1335-4208-94ab-2792502135f2","name":"Mary","score":80}
 ```
 
-No higher score checking is implemented on backend side, meaning the scoring data will directly being repalced the existing player one, or added if the current one does not exist. `playerId` is the unique ID for identifying different players.
+No higher score checking is implemented on the backend side, meaning the existing player data will directly being replaced by the new one or added if the old one does not exist. `playerId` is the unique ID for identifying different players.
 
 ## Run test
 Tests are included in the frontend application (as we're focusing on frontend application). To run those, please use the following command:
